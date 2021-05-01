@@ -39,3 +39,6 @@ A utility mixin can provide direct access to the functionality that can be acces
 }
 ```
 
+## Applications
+
+A config and an abstract can all be applied to an abstract.

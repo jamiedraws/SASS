@@ -73,7 +73,7 @@ A modifier mixin can be stacked on top of a base mixin to extend the component w
 
 ## Applications
 
-An abstract and config can all be applied to a component.
+An abstract, config and a component can all be applied to a component.
 
 ```scss
 @use "../abstracts/copy";
