@@ -71,3 +71,38 @@ A modifier mixin can be stacked on top of a base mixin to extend the component w
 }
 ```
 
+## Applications
+
+An abstract and config can all be applied to a component.
+
+```scss
+@use "../abstracts/copy";
+@use "../abstracts/contain";
+@use "../abstracts/group";
+@use "../config/colors";
+
+@mixin base {
+    #{$select} {
+        @include colors.get(dark);
+        @include group.contain();
+        
+        button {
+
+        }
+
+        &__title {
+            
+        }
+
+        &__picture {
+            @include contain.ratio(400/250);
+        }
+
+        &__copy {
+            @include copy.separate();
+        }
+
+        @content;
+    }
+}
+```
