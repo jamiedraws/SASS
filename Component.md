@@ -165,9 +165,58 @@ $select: ".card-picture-caption" !default;
 }
 
 ```
-## Applications
+## Cascading & Inheritance
 
-An abstract, config and a component can all be applied to a component.
+The one exception to introducing another component is when we want to introduce a component with the same namespace. We might want to do this because we have a need to modify the rules of a component without compromising the origin component. This leads to the concept of a cascade component.
+
+### Using the Origin Component to Inherit and Cascade Existing Members
+
+On one hand, cascading is ideal when you need to modify the base rules on the same mixin namespace as the origin component. Use the origin component and bind the cascade `$select` variable to the origin `$select` variable so that they represent the same namespace.
+
+From there, the idea is to overwrite the implementation details of the base mixin to further enhance the functionality of the cascade component. In this example, we can inherit the implementation details of the origin component's base mixin and then build new implementation details on to it.
+
+```scss
+$select: ".card-picture-caption" !default;
+
+// components
+@use "Shared/css/template/base/components/card-picture-caption" with ($select: $select);
+
+@mixin base {
+    // notice that we inherit the base mixin within the new cascade base mixin. This allows us to cascade on the origin base.
+    @include card-picture-caption.base;
+
+    #{$select} {
+        &__picture {
+            flex-basis: auto;
+        }
+    }
+}
+```
+
+### Forwarding the Origin Component to Inherit all Origin Members and Cascade Members
+On the other hand, inheritance is ideal when you only need to modify the base rules using a modifier mixin. This approach is no different than if you were to define a base mixin on the same partial file. When the component is applied to an interface, all of the inherited members can be accessed along with the new *hero* member.
+
+```scss
+$select: ".card-picture-caption" !default;
+
+// components
+@forward "Shared/css/template/base/components/card-picture-caption" with ($select: $select);
+
+// hero is a new mixin member that isn't defined in the origin component
+@mixin hero {
+    #{$select}--hero {
+        #{$select} {
+            &__picture {
+                width: 100%;
+            }
+        }
+
+        @content;
+    }
+}
+```
+
+## Applications
 
 ### Example Using an Interface
 
@@ -178,6 +227,7 @@ Using a *page* interface, we can use the *card-picture-caption* component and in
 
 @mixin index {
     @include card-picture-caption.base;
+    @include card-picture-caption.hero;
 }
 
 @mixin gallery {
