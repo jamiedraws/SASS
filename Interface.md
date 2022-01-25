@@ -1,117 +1,115 @@
 # Interface
 
-An interface describes a user-interface that serves a single purpose through the mixin directive. 
+While layouts, components and abstracts provide implementation details, interfaces provide abstractions that can represent either portions or enterities of a user-interface.
+
+
 
 ## Blueprint
 
-A blueprint of a page interface illustrates what a user-interface could look like for a home page, a contact page and a checkout page.
+A blueprint of an interface begins with the relationship to the webpage. Deciding the relationship can then outline that blueprint through either a single mixin or multiple mixins.
 
 
 ## Interface Mixin
 
-An interface mixin can provide a collection of rules that create a user-interface.
+In this example, we are creating a *page* interface. This interface is responsible for providing abstractions for each of the page types that make up the whole website. `@content` directives are provided in order to indent our interface applications from the main stylesheet.
 
 ```scss
-@mixin home-page {
+@mixin home {
     @content;
 }
 
-@mixin contact-page {
+@mixin contact {
     @content;
 }
 
-@mixin checkout-page {
+@mixin checkout {
     @content;
 }
 ```
 
 
-## Base Mixin
+## Inheriting Interface Mixins
 
-A base mixin can provide common rules that can be applicable to other interface mixins.
+In some situations, it is necessary to apply common abstractions across multiple interfaces. One way to accomplish this is to establish a *base* mixin and let it be responsible for providing the common abstraction rules.
 
 
 ```scss
-@mixin global {
+// layouts
+@use "../layouts/document";
+@use "../layouts/home";
+@use "../layouts/contact";
+@use "../layouts/checkout";
+
+@mixin base {
+    @include document.base;
+
     @content;
 }
 
-@mixin home-page {
-    @include global();
+@mixin home {
+    @include home.base;
     
     @content;
 }
 
-@mixin contact-page {
-    @include global();
+@mixin contact {
+    @include contact.base;
 
     @content;
 }
 
-@mixin checkout-page {
-    @include global();
+@mixin checkout {
+    @include checkout.base;
 
     @content;
 }
 ```
 
-## Applications
-
-An abstract, config, component, layout and an interface can all be applied to an interface.
+In the stylesheet, this will allow us to apply the interface mixins in an understandable way.
 
 ```scss
-@use "../abstracts/copy";
-@use "../abstracts/group";
+// interfaces
+@use "interfaces/page";
 
-@use "../components/button";
-@use "../components/list";
-
-@use "../layouts/hero";
-
-@use "../interfaces/header";
-@use "../interfaces/form";
-
-@use "../config/queries";
-
-@mixin global {
-    @media all and (min-width: queries.get(desktop)) {
-        @include header.header-navbar();
-    }
-
-    @media all and (max-width: queries.get(desktop)) {
-        @include header.header-navdrawer();
-    }
-
-    @include button.base();
-    @include list.bullet();
-
-    @include copy.base();
-
-    @content;
+@include page.base {
+    @include page.home;
+    @include page.contact;
+    @include page.checkout;
 }
+```
 
-@mixin home-page {
-    @include global {
-        @include hero.image-text();
+This stylesheet tells us that we are applying the base styles first, then we are applying the home-page styles, then the contact styles and finally the checkout styles.
 
-        @content;
-    }
-}
+If we're aiming to deliver multiple stylesheets to provide better caching strategies and or managing larger-scale web applications, we can simply re-assign the mixins to their respective stylesheets.
 
-@mixin contact-page {
-    @include global {
-        @include form.contact();
+`app.scss`
+```scss
+// interfaces
+@use "interfaces/page";
 
-        @content;
-    }
-}
+@include page.base;
+```
 
-@mixin checkout-page {
-    @include global {
-        @include form.checkout();
-        @include group.base();
+`index.scss`
+```scss
+// interfaces
+@use "interfaces/page";
 
-        @content;
-    }
-}
+@include page.home;
+```
+
+`contact.scss`
+```scss
+// interfaces
+@use "interfaces/page";
+
+@include page.contact;
+```
+
+`checkout.scss`
+```scss
+// interfaces
+@use "interfaces/page";
+
+@include page.checkout;
 ```
