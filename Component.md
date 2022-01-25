@@ -1,35 +1,71 @@
 # Component
 
-A component describes a single entity that can live within an layout and perform a single task.
+A component aims to address specific content in a smaller area of space. It is an entity of it's own and is responsible for it's own members. What this means is that a component is neither responsible for any other namespaces, or classes, that are outside or inside that component.
 
 ## Blueprint
 
-A blueprint of a card component can illustrate the type of card that contains a button element and then an element that represents a title, a picture and copy.
+The blueprint of a componet begins with the base mixin. From there, modifier mixins can be used to modify the base without compromising the original base rules.
+
+```scss
+$select: ".class-name" !default;
+
+@mixin base {
+    #{$select} {
+        @content;
+    }
+}
+
+```
 
 
 ## Base Mixin
 
-A base mixin can define common properties on a component that would be also be applicable to any modifiers.
+Using the *block* and *element* solution, per BEM guidelines, the base component represents the complete entity of the user-interface component. In this example, we are creating a *card-picture-caption* component that contains a certain look and follows a specific HTML structure.
+
+```html
+<figure class="card-picture-caption">
+    <div class="card-picture-caption__picture">
+        <img src="images/picture.jpg" alt="A view of the sunset on a beach" width="300" height="200">
+    </div>
+    <figcaption class="card-picture-caption__caption">This was taken in the summer of 2019</figcaption>
+    <button>Zoom Picture</button>
+</figure>
+```
 
 ```scss
-$select: ".card" !default;
+$select: ".card-picture-caption" !default;
 
 @mixin base {
     #{$select} {
-        button {
+        border-radius: 0.5em;
+        overflow: hidden;
 
-        }
+        &__group {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-around;
 
-        &__title {
-
+            > * {
+                flex: 0 1 auto;
+                margin: 1rem;
+            }
         }
 
         &__picture {
-
+            flex-basis: 20em;
         }
 
-        &__copy {
+        &__caption {
+            flex-basis: 25em;
+            flex-grow: 1;
+        }
 
+        button {
+            padding: 0.5em;
+            border: 0.1em solid;
+
+            color: white;
+            background: black;
         }
 
         @content;
@@ -40,29 +76,35 @@ $select: ".card" !default;
 
 ## Modifier Mixin
 
-A modifier mixin can be stacked on top of a base mixin to extend the component with distinct properties.
+Using the *modifier* solution, per BEM guidelines, we can extend our base component to create a variant solution. This may be ideal when there is an opportunity to apply similar patterns and leverage the cascade to override certain style declarations.
 
+In our *card-picture-caption* example, we can introduce a variant to highlight a certain element group without having to redefine the base rules once again. Instead of redefining base rules, we can leverage the existing classes and the cascade to modify the base in the same namespace.
+
+This creates a new scope in our component where any modifications will not compromise the original base rules.
 
 ```scss
-@mixin modifier {
+@mixin highlight {
     #{$select} {
-        &--modifier {
+        &--highlight {
+            max-width: 20em;
+
+            #{$select} {
+                &__group {
+                    flex-direction: column;
+                }
+
+                &__picture {
+                    flex-basis: auto;
+                }
+
+                &__caption {
+                    flex-basis: auto;
+                }
+            }
+
             button {
-
-            }
-        }
-
-        #{$select} {
-            &__title {
-
-            }
-
-            &__picture {
-
-            }
-
-            &__copy {
-
+                color: black;
+                background: white;
             }
         }
 
@@ -71,38 +113,123 @@ A modifier mixin can be stacked on top of a base mixin to extend the component w
 }
 ```
 
+## Implementations
+
+When defining a new component, other lower-level modules such as *abstracts* may be implemented in order to provide reusable code that can contribute towards the new component.
+
+Unlike the abstract, it's ill advised to introduce another component because it violates the component's single responsibility. It's important to remember that each component is it's own entity and is only responsible for its own members.
+
+Instead of introducing another component, consider extracting the code from that component into a new abstract and implementing that abstract into both components.
+
+```scss
+$select: ".card-picture-caption" !default;
+
+// config 
+@use "../config/colors";
+
+// abstracts
+@use "../abstracts/group";
+@use "../abstracts/copy";
+
+@mixin base {
+    #{$select} {
+        border-radius: 0.5em;
+        overflow: hidden;
+
+        &__group {
+            // notice how we're substituting the flexbox rules for the group abstract's contain mixin which outputs the flexbox styles along with initial flex rules for it's immediate children and margin gap.
+            @include group.contain;
+        }
+
+        &__picture {
+            flex-basis: 20em;
+        }
+
+        &__caption {
+            flex-basis: 25em;
+            flex-grow: 1;
+
+            @include copy.separate;
+        }
+
+        button {
+            padding: 0.5em;
+            border: 0.1em solid;
+
+            color: colors.get(base-light);
+            background: colors.get(primary);
+        }
+
+        @content;
+    }
+}
+
+```
 ## Applications
 
 An abstract, config and a component can all be applied to a component.
 
+### Example Using an Interface
+
+Using a *page* interface, we can use the *card-picture-caption* component and include the mixins that we need. For the index page, we only need to use the base styles and for the gallery page, we need both the base styles and the highlight styles.
 ```scss
-@use "../abstracts/copy";
-@use "../abstracts/contain";
-@use "../abstracts/group";
-@use "../config/colors";
+// components
+@use "../components/card-picture-caption";
+
+@mixin index {
+    @include card-picture-caption.base;
+}
+
+@mixin gallery {
+    @include card-picture-caption.base;
+    @include card-picture-caption.highlight;
+}
+```
+
+## Violations
+
+### Example of Multiple Namespaces
+
+In this example, we are violating the *card-picture-caption* component by introducing a different class name. This can lead to poor management of components and higher complexities as well. 
+
+
+```scss
+$select: ".card-picture-caption" !default;
 
 @mixin base {
     #{$select} {
-        @include colors.get(dark);
-        @include group.contain();
-        
-        button {
-
-        }
-
-        &__title {
-            
-        }
-
         &__picture {
-            @include contain.ratio(400/250);
+
         }
 
-        &__copy {
-            @include copy.separate();
+        &__caption {
+
         }
 
-        @content;
+        // .card-picture-caption should be not responsible to deal with .btn
+        .btn {
+
+        }
+    }
+}
+```
+Instead of creating an invasive dependency, create a new member with a similar name like `.btn`. This will further define the component while simplyfing the specificity value.
+
+```scss
+@mixin base {
+    #{$select} {
+        &__picture {
+
+        }
+
+        &__caption {
+
+        }
+
+        // instead of .btn, create a new member under the same namespace. This will liberate .card-picture-caption from becoming more complex and reduce the specificity value.
+        &__btn {
+
+        }
     }
 }
 ```
