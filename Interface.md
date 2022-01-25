@@ -1,6 +1,6 @@
 # Interface
 
-While layouts, components and abstracts provide implementation details, interfaces provide abstractions that can represent either portions or enterities of a user-interface.
+While layouts, components and abstracts provide implementation details, interfaces provide abstractions that can represent either portions or entireties of a user-interface.
 
 
 
