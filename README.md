@@ -66,9 +66,9 @@ In one Sass partial, we implemented the details for a *module-C* and just as we 
     @include module.modifier;
 }
 ```
-The interface's objective is to *interface* with other modules and apply the mixins that contribute towards the user-interface. 
+The interface's objective is to *interface* with other modules and apply the mixins that contribute towards a single user-interface or multiple user-interfaces. 
 
-Interfaces are agnostic of implementation details and are focused on the abstract details. To further clarify, take the `module.base` for example; this interface has no idea what the code inside the `module.base` mixin looks like or is supposed to do. Those details are reserved inside the module itself.
+Interfaces are agnostic of implementation details and are focused on the abstract details. To further clarify, take the `module.base` for example; this interface is not aware of what the code inside the `module.base` mixin looks like or is supposed to do. Those details are reserved inside the module itself.
 
 Separating implementation from abstraction allows us to read *interfaces* as a document of commands that create a user-interface. When we want an overview perspective of the entire assembly line of modules without the details, we can rely on an interface.
 
@@ -87,4 +87,4 @@ At the end of the road lies the actual Sass stylesheet and just like with the *i
     @include page.index;
 }
 ```
-Similarly with the interface, the stylesheet provides an overview perspective of commands; however, while an interface is aware of which *abstaracts*, *components*, and *layouts*, are included, the stylesheet is only aware of which *user-intefaces* are included. That is the difference between a stylesheet and an interface.
+Similarly with the interface, the stylesheet provides an overview perspective of commands; however, while an interface is aware of which *abstaracts*, *components*, and *layouts*, are included, the stylesheet is only aware of which *intefaces* are included. That is the difference between a stylesheet and an interface.

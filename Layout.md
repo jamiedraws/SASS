@@ -1,35 +1,67 @@
 # Layout
 
-A layout describes a section of the user-interface that serves a single purpose.
+A layout aims to address a large array of elements in a large space. It shares similar priviledges with the *component* and it shares the similar idea that it can stand alone as an entity. However; what makes a layout different from a component is that the *layout* can provide *slots* where *components* could be introduced into the user-interface.
 
 ## Blueprint
 
-A blueprint of a header can illustrate what a header with a logo, a title and a button could look like.
+The blueprint of a layout begins with the base mixin. From there, modifier mixins can be used to modify the base without compromising the original base rules.
 
 
 ## Base Mixin
 
-A base mixin can define common properties on a component that would be also be applicable to any modifiers.
+Using the *block* and *element* solution, per BEM guidelines, the base layout represents the complete entity of the user-interface layout. In this example, we are creating a *content* layout that contains a certain look and follows a specific HTML structure.
+
+```html
+<section class="content">
+    <div class="content__group">
+        <header class="content__header">
+            <h1 class="content__title">Section Title</h1>
+        </header>
+
+        <figure class="content__figure card-picture-caption">
+            <div class="card-picture-caption__picture">
+                <img src="images/picture.jpg" alt="A view of the sunset on a beach" width="300" height="200">
+            </div>
+            <figcaption class="card-picture-caption__caption">This was taken in the summer of 2019</figcaption>
+            <button>Zoom Picture</button>
+        </figure>
+
+        <footer class="content__footer">
+            Footer Info
+        </footer>
+    </div>
+
+```
 
 ```scss
-$select: ".header" !default;
+$select: ".content" !default;
 
 @mixin base {
     #{$select} {
-        img {
-
-        }
-
-        &__logos {
-
+        &__header {
+            flex-basis: 100%;
         }
 
         &__title {
-
+            text-align: center;
         }
 
-        &__button {
+        &__group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
 
+            > * {
+                margin: 1rem;
+            }
+        }
+
+        &__figure {
+            flex-basis: 30em;
+        }
+
+        &__footer {
+            flex-basis: 100%;
         }
 
         @content;
