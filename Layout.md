@@ -209,7 +209,7 @@ $select: ".content" !default;
     }
 }
 ```
-### Forwarding the Origin Component to Inherit all Origin Members and Cascade Members
+### Forwarding the Origin Layout to Inherit all Origin Members and Cascade Members
 On the other hand, inheritance is ideal when you only need to modify the base rules using a modifier mixin. This approach is no different than if you were to define a base mixin on the same partial file. When the layout is applied to an interface, all of the inherited members can be accessed along with the new *sidebar* member.
 
 ```scss
@@ -279,7 +279,7 @@ $select: ".content" !default;
     }
 }
 ```
-Instead of creating an invasive dependency, create a new member with a similar name like `.list`. This will further define the component while simplyfing the specificity value.
+Instead of creating an invasive dependency, create a new member with a similar name like `.list`. This will further define the layout while simplyfing the specificity value.
 
 ```scss
 @mixin base {
