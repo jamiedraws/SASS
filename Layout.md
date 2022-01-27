@@ -1,6 +1,6 @@
 # Layout
 
-A layout aims to address a large array of elements in a large space. It shares similar priviledges with the *component* and it shares the similar idea that it can stand alone as an entity. However; what makes a layout different from a component is that the *layout* can provide *slots* where *components* could be introduced into the user-interface.
+A layout aims to address a large array of elements in a large space. It shares the same anatomy and the same priviledges as the *component* and it shares the similar idea that it can stand alone as an entity. However; what makes a layout different from a component is that the *layout* can provide *slots* where *components* could be introduced into the user-interface.
 
 ## Blueprint
 
