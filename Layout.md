@@ -2,10 +2,33 @@
 
 A layout aims to address a large array of elements in a large space. It shares the same anatomy and the same priviledges as the *component* and it shares the similar idea that it can stand alone as an entity. However; what makes a layout different from a component is that the *layout* can provide *slots* where *components* could be introduced into the user-interface.
 
-## Blueprint
+## Anatomy
 
-The blueprint of a layout begins with the base mixin. From there, modifier mixins can be used to modify the base without compromising the original base rules.
+The anatomy of a layout begins with the `$select` variable and `base` mixin. From there, optional modifier mixins can be used to modify the base without compromising the original base rules.
 
+```scss
+$select: ".class-name" !default;
+
+@mixin base {
+    #{$select} {
+        @content;
+    }
+}
+```
+
+## Priviledges
+
+### Access Roles
+
+| Properties | Values |
+| ----------- | ----------- |
+| Access to configs | Yes |
+| Access to utilities | Yes |
+| Access to abstracts | Yes |
+| Access to components | No |
+| Access to layouts - *different namespace* | No |
+| Access to layouts - *same namespace* | Yes
+| Access to interfaces | No |
 
 ## Base Mixin
 
@@ -299,3 +322,5 @@ Instead of creating an invasive dependency, create a new member with a similar n
     }
 }
 ```
+
+### Example 

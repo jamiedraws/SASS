@@ -4,10 +4,28 @@ While layouts, components and abstracts provide implementation details, interfac
 
 
 
-## Blueprint
+## Anatomy
 
-A blueprint of an interface begins with the relationship to the webpage. Deciding the relationship can then outline that blueprint through either a single mixin or multiple mixins.
+The anatomy of an interface begins with the relationship to the webpage. Deciding the relationship can then outline that blueprint through either a single mixin or multiple mixins. Replace `view` with the name of the particular view that contributes to the user-interface and ensure the `@content` directive is provided.
 
+```scss
+@mixin view {
+    @content;
+}
+```
+
+## Priviledges
+
+### Access Roles
+
+| Properties | Values |
+| ----------- | ----------- |
+| Access to configs | Yes |
+| Access to utilities | Yes |
+| Access to abstracts | Yes |
+| Access to components | Yes |
+| Access to layouts | Yes |
+| Access to interfaces | No |
 
 ## Interface Mixin
 

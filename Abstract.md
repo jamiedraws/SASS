@@ -1,69 +1,46 @@
 # Abstract
 
-While a layout aims to address large areas of generic content and a component aims to address smaller areas of specific content, an abstract aims to address solutions and patterns that are often found in both a component and a layout.
+While a layout aims to address large areas of complex content and a component aims to address smaller areas of specific content, an abstract aims to address solutions and patterns that are often found in both a component and a layout.
 
-Unlike a traditional utility, an abstract *can* assume the role of a utility using its own namespace; but moreso, an abstract can assume the role of an *element* under the namespace of a component or a layout.
+Unlike components and layouts, an abstract is not a standalone entity. Instead, an abstract is designed to create composition for either a component or a layout.
 
-## Blueprint
+## Anatomy
 
-A blueprint of a *copy* abstract can demonstrate it's ability to apply margin space to every element that follows right after another element.
-
-
-## Base Mixin
-
-A base mixin can define a utility class that can perform the main task.
+The anatomy of an abstract begins with the `role` mixin. Replace `role` with the name that represents what the abstract code is aiming to accomplish.
 
 ```scss
-$select: ".copy" !default;
-
-@mixin base {
-    #{$select} {
-        @include separate();
-
-        @content;
-    }
+@mixin role {
+    @content;
 }
+
 ```
 
+## Priviledges
 
-## Utility Mixin
+### Access Roles
 
-A utility mixin can provide direct access to the functionality that can be accessible from a base mixin.
+| Properties | Values |
+| ----------- | ----------- |
+| Access to configs | No |
+| Access to utilities | No |
+| Access to abstracts | No |
+| Access to components | No |
+| Access to layouts | No |
+| Access to interfaces | No |
 
 
+## Implementations
+
+In this example, we can create a *space* abstract that can provide composition tools for providing space between elements. We create a tool named `between-flow-elements` that takes an optional argument to specify the gap space that will apply between flow elements.
+
+`_space.scss`
 ```scss
-@mixin separate($gap: 1rem) {
+@mixin between-flow-elements($gap: 1rem) {
     > * + * {
         margin-top: #{$gap};
     }
 
     @content;
-}
-```
-
-## Implementations
-
-When defining a new abstract, other abstracts *may* be implemented in order to provide reusable code to complement the new abstract. 
-
-It's important to remember that an abstract can assume the role of a utility and contribute to a higher-level module, such as a component or a layout. It's role is not to assume the role of a component or a layout.  
-
-Therefore, if the implementation details begin to build and become an entity, consider using a component or a layout instead of an abstract. There might even be an opportunity to extract patterns into abstracts in this case.
-
-```scss
-$select: ".abstract-solution" !default;
-
-// config
-@use "../config/fonts";
-
-// abstracts
-@use "abstract-helper";
-
-@mixin base {
-    @include abstract-helper.base;
-
-    #{$select} {
-        @content;
-    }
 }
 ```
 
@@ -80,7 +57,7 @@ $select: ".card" !default;
 
 // abstracts
 @use "../abstracts/group";
-@use "../abstracts/copy";
+@use "../abstracts/space";
 
 @mixin base {
     #{$select} {
@@ -89,7 +66,7 @@ $select: ".card" !default;
         }
 
         &__copy {
-            @include copy.separate;
+            @include space.between-flow-elements;
         }
     }
 }
@@ -118,23 +95,5 @@ $select: ".page" !default;
     }
 }
 
-
-```
-
-### Example Using an Interface
-
-An interface may be ideal to define an abstract when the abstract might be required to operate in it's own namespace. This gives the abstract the same privilege as the component and the layout while they can fulfill their roles on different scopes.
-```scss
-// abstracts
-@use "abstracts/icon-text";
-@use "abstracts/logo-text";
-
-@mixin index {
-    @include icon-text.base;
-}
-
-@mixin all-pages {
-    @include logo-text.base;
-}
 
 ```

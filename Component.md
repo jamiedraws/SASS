@@ -2,9 +2,9 @@
 
 A component aims to address specific content in a smaller area of space. It is an entity of it's own and is responsible for it's own members. What this means is that a component is neither responsible for any other namespaces, or classes, that are outside or inside that component.
 
-## Blueprint
+## Anatomy
 
-The blueprint of a componet begins with the base mixin. From there, modifier mixins can be used to modify the base without compromising the original base rules.
+The anatomy of a componet begins with the `$select` variable and the `base` mixin. From there, optional modifier mixins can be used to modify the base without compromising the original base rules.
 
 ```scss
 $select: ".class-name" !default;
@@ -16,7 +16,19 @@ $select: ".class-name" !default;
 }
 
 ```
+## Priviledges
 
+### Access Roles
+
+| Properties | Values |
+| ----------- | ----------- |
+| Access to configs | Yes |
+| Access to utilities | Yes |
+| Access to abstracts | Yes |
+| Access to components - *different namespace* | No |
+| Access to components - *same namespace* | Yes |
+| Access to layouts | No |
+| Access to interfaces | No |
 
 ## Base Mixin
 
