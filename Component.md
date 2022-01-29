@@ -23,7 +23,7 @@ $select: ".class-name" !default;
 | Properties | Values |
 | ----------- | ----------- |
 | Access to configs | Yes |
-| Access to utilities | Yes |
+| Access to utilities | No |
 | Access to abstracts | Yes |
 | Access to components - *different namespace* | No |
 | Access to components - *same namespace* | Yes |
