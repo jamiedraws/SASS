@@ -169,7 +169,7 @@ $gap: 1rem !default;
 
 ### Example Using an Interface
 
-Using a *app* interface, we can use the *flow-break* component and include the mixins that we need. For this app, we can use all of the available members to provide an assortment of utility classes.
+Using a *app* interface, we can use the *flow-break* utility and include the mixins that we need. For this app, we can use all of the available members to provide an assortment of utility classes.
 ```scss
 // utils
 @use "../utils/flow-break";
