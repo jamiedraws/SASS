@@ -20,7 +20,7 @@ The anatomy of an interface begins with the relationship to the webpage. Decidin
 
 | Properties | Values |
 | ----------- | ----------- |
-| Access to configs | Yes |
+| Access to configs | No |
 | Access to utilities | Yes |
 | Access to abstracts | No |
 | Access to components | Yes |
@@ -70,7 +70,7 @@ In some situations, it is necessary to apply common abstractions across multiple
     @include flow-break.base;
     @include flow-break.double;
     @include flow-break.triple;
-    
+
     @content;
 }
 
