@@ -98,14 +98,14 @@ $select: ".card" !default;
 
 ### Example Using a Layout
 
-An abstract can also be implemented into a new *page* layout. While the code structure looks identical to the card component at first, this also allows the page layout to tackle more generic and larger areas of content while the component can focus in on a more specific and smaller area of content.
+An abstract can also be implemented into a new *page* layout. While the code structure looks identical to the card component at first, this also allows the page layout to tackle larger areas of content while the component can focus in on a more specific and smaller area of content.
 
 ```scss
 $select: ".page" !default;
 
 // abstracts
 @use "../abstracts/group";
-@use "../abstracts/copy";
+@use "../abstracts/space";
 
 @mixin base {
     #{$select} {
@@ -114,7 +114,7 @@ $select: ".page" !default;
         }
 
         &__copy {
-            @include copy.separate;
+            @include space.between-flow-elements;
         }
     }
 }
