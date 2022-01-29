@@ -1,6 +1,6 @@
 # Interface
 
-While layouts, components and abstracts provide implementation details, interfaces provide abstractions that can represent either portions or entireties of a user-interface.
+While layouts, components and utilities provide implementation details, interfaces provide abstractions that can represent either portions or entireties of a user-interface.
 
 
 
@@ -22,7 +22,7 @@ The anatomy of an interface begins with the relationship to the webpage. Decidin
 | ----------- | ----------- |
 | Access to configs | Yes |
 | Access to utilities | Yes |
-| Access to abstracts | Yes |
+| Access to abstracts | No |
 | Access to components | Yes |
 | Access to layouts | Yes |
 | Access to interfaces | No |
@@ -58,14 +58,25 @@ In some situations, it is necessary to apply common abstractions across multiple
 @use "../layouts/contact";
 @use "../layouts/checkout";
 
+// components
+@use "../components/card-picture-caption";
+
+// utils
+@use "../utils/flow-break";
+
 @mixin base {
     @include document.base;
 
+    @include flow-break.base;
+    @include flow-break.double;
+    @include flow-break.triple;
+    
     @content;
 }
 
 @mixin home {
     @include home.base;
+    @include card-picture-caption.base;
     
     @content;
 }
