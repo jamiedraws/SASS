@@ -158,7 +158,7 @@ This creates a new scope in our layout where any modifications will not compromi
 
 When defining a new layout, other lower-level modules such as *abstracts* may be implemented in order to provide reusable code that can contribute towards the new layout.
 
-Unlike the abstract, it's ill advised to introduce another layout because it violates the layout's single responsibility. It's important to remember that each layout is it's own entity and is only responsible for its own members.
+It's ill advised to introduce another layout because it violates the layout's single responsibility. It's important to remember that each layout is it's own entity and is only responsible for its own members.
 
 Instead of introducing another layout, consider extracting the code from that layout into a new abstract and implementing that abstract into both layouts.
 
