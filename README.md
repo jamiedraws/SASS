@@ -87,4 +87,4 @@ At the end of the road lies the actual Sass stylesheet and just like with the *i
     @include page.index;
 }
 ```
-Similarly with the interface, the stylesheet provides an overview perspective of commands; however, while an interface is aware of which *abstaracts*, *components*, and *layouts*, are included, the stylesheet is only aware of which *intefaces* are included. That is the difference between a stylesheet and an interface.
+Similarly with the interface, the stylesheet provides an overview perspective of commands; however, while an interface is aware of which *utilities*, *components*, and *layouts*, are included, the stylesheet is only aware of which *intefaces* are included. That is the difference between a stylesheet and an interface.
