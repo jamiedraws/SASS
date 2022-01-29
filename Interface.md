@@ -96,6 +96,7 @@ In some situations, it is necessary to apply common abstractions across multiple
 
 In the stylesheet, this will allow us to apply the interface mixins in an understandable way.
 
+`style.scss`
 ```scss
 // interfaces
 @use "interfaces/page";
