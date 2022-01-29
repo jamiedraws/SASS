@@ -170,7 +170,7 @@ $select: ".content" !default;
 
 // abstracts
 @use "../abstracts/group";
-@use "../abstracts/copy";
+@use "../abstracts/space";
 
 @mixin base {
     #{$select} {
@@ -189,7 +189,7 @@ $select: ".content" !default;
         }
 
         &__text {
-            @include copy.separate;
+            @include space.between-flow-elements;
         }
 
         &__figure {
@@ -322,5 +322,3 @@ Instead of creating an invasive dependency, create a new member with a similar n
     }
 }
 ```
-
-### Example 
