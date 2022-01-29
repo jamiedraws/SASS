@@ -129,7 +129,7 @@ This creates a new scope in our component where any modifications will not compr
 
 When defining a new component, other lower-level modules such as *abstracts* may be implemented in order to provide reusable code that can contribute towards the new component.
 
-Unlike the abstract, it's ill advised to introduce another component because it violates the component's single responsibility. It's important to remember that each component is it's own entity and is only responsible for its own members.
+It's ill advised to introduce another component because it violates the component's single responsibility. It's important to remember that each component is it's own entity and is only responsible for its own members.
 
 Instead of introducing another component, consider extracting the code from that component into a new abstract and implementing that abstract into both components.
 
