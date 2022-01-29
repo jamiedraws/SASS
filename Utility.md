@@ -63,7 +63,7 @@ $select: ".flow-break" !default;
 
 ## Modifier Mixin
 
-Using the *modifier* solution, per BEM guidelines, we can extend our base component to create a variant solution. This may be ideal when there is an opportunity to apply similar patterns and leverage the cascade to override certain style declarations.
+Using the *modifier* solution, per BEM guidelines, we can extend our base utility to create a variant solution. This may be ideal when there is an opportunity to apply similar patterns and leverage the cascade to override certain style declarations.
 
 In our *flow-break* example, we can introduce a variant to highlight a certain element group without having to redefine the base rules once again. Instead of redefining base rules, we can leverage the existing classes and the cascade to modify the base in the same namespace.
 
