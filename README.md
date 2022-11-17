@@ -1,6 +1,6 @@
 # Sass Style Guide
 
-This style guide focuses on the *Mixin Module* design pattern and adopts the *BEM* design methodology.
+This style guide focuses on the *Mixin Module* design pattern and adopts the *BEM* design method.
 
 ## BEM Mixin Module *(BEM Double-M)*
 This is a design pattern that operates primarily around the Sass mixin syntax and the module system. In Sass, [a mixin allows you to define styles that can be re-used throughout your stylesheet](https://sass-lang.com/documentation/at-rules/mixin). This enables developers to include a mixin either in the same Sass file or in another Sass file.
