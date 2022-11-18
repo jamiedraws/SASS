@@ -1,4 +1,4 @@
-# Component
+# Components
 
 A component aims to address specific content in a smaller area of space. It is an entity of it's own and is responsible for it's own members. What this means is that a component is neither responsible for any other namespaces, or classes, that are outside or inside that component.
 

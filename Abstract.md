@@ -1,4 +1,4 @@
-# Abstract
+# Abstracts
 
 While a layout aims to address large areas of complex content and a component aims to address smaller areas of specific content, an abstract aims to address solutions and patterns that are often found in either a utility, a component or a layout.
 
@@ -21,7 +21,7 @@ The anatomy of an abstract begins with the `role` mixin. Replace `role` with the
 
 | Properties | Values |
 | ----------- | ----------- |
-| Access to configs | No |
+| Access to configs | Yes |
 | Access to utilities | No |
 | Access to abstracts | No |
 | Access to components | No |
